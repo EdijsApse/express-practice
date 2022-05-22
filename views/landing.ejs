@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/styles/navigation.css" rel="stylesheet">
+    <link href="/styles/pages/products.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center position-relative" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Account</a>
+                    </li>
+                </ul>
+                <div class="auth-actions">
+                    <button class="btn btn-sm btn-auth btn-dark me-2">Login</button>
+                    <button class="btn btn-sm btn-auth btn-pink">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="bg-white products-categories-section container-xxl">
+        <div class="py-5">
+            <h1 class="text-center">Products</h1>
+        </div>
+        <div class="products-categories-list d-flex justify-content-center">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">T-Shirts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shoes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hoodies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shorts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hats</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="bg-white products-list container-xxl mt-5">
+        <div class="products-row">
+            <div class="single-product">
+                <div class="single-product-image">
+                    <img src="/example.png" class="card-img-top" alt="...">
+                </div>
+                <div class="single-product-body">
+                    <h5>Card title</h5>
+                    <div class="rating">
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                    <div class="price-tag">
+                        <span class="price">20$</span>
+                    </div>
+                    <button class="btn btn-sm btn-dark btn-purchase">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap');
+
+html {
+    --heading-font: 'Montserrat', sans-serif; /* 300;400;600 */
+    --text-font: 'Roboto', sans-serif; /* 300;400;500 */
+
+    --color-pink: #DA0037;
+    --color-grey: #444444;
+    --color-shadow-light: #EDEDED;
+    --color-shadow-dark: #171717;
+}
+
+body {
+    background-color: var(--color-shadow-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-weight: 400;
+}
+
+p, a, button, span, li {
+    font-family: var(--text-font);
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+.btn {
+    font-size: 1.1rem;
+    padding: 0.4rem 1.5rem;
+    font-weight: 300;
+    border: none;
+}
+
+.btn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn:active:focus {
+    box-shadow: none;
+}
+
+.btn-dark {
+    background-color: var(--color-shadow-dark);
+}
+
+.bg-dark {
+    background-color: var(--color-shadow-dark) !important;
+}
+
+.btn-pink {
+    background-color: var(--color-pink);
+    color: #FFF;
+}
+
+.btn-pink:hover, .btn-pink:focus {
+    color: #FFF;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+    background-color: #FFF;
+    color: #000;
+}
+
+.btn-light:hover, .btn-light:focus {
+    background-color: var(--color-shadow-dark);
+    color: #FFF;
+}

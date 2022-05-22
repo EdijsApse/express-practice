@@ -1,0 +1,74 @@
+.products-categories-section h1 {
+    font-size: 4rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.stores-categories-list {
+    border-top: 2px solid var(--color-shadow-light);
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.products-categories-list .nav .nav-item .nav-link {
+    color: var(--color-shadow-dark);
+    font-weight: 300;
+}
+
+.products-categories-list .nav .nav-item .nav-link:hover ,.products-categories-list .nav .nav-item .nav-link:focus {
+    color: var(--color-pink);
+}
+
+.products-list {
+    padding: 3rem;
+}
+
+.products-row {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.products-row .single-product {
+    display: block;
+    width: 25%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.products-row .single-product .single-product-image {
+    border: 2px solid var(--color-shadow-light);
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.products-row .single-product .single-product-body h5 {
+    margin: 0.5rem 0;
+}
+
+.products-row .single-product .single-product-body .rating {
+    margin-bottom: 0.55rem;
+}
+
+.products-row .single-product .single-product-body .rating i {
+    font-size: 1.2rem;
+}
+
+.products-row .single-product .single-product-body .price-tag .price {
+    font-weight: 600;
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+}
+
+.products-row .single-product .single-product-body .btn-purchase {
+    margin-top: 0.65rem;
+    padding: 0.2rem 1rem;
+    border: 2px solid var(--color-shadow-dark);
+}
+
+.products-row .single-product .single-product-body .btn-purchase:hover {
+    border: 2px solid var(--color-shadow-dark);
+}
