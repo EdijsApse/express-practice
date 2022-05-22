@@ -1,0 +1,62 @@
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    margin-bottom: 0.75rem;
+}
+
+.form-group .form-control {
+    border: 1px solid var(--color-shadow-light);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.form-group .form-control:focus {
+    border-color: var(--color-pink);
+    box-shadow: none;
+}
+
+.file-select-container .form-group .form-control-file {
+    display: none;
+}
+
+.file-select-container .form-group .file-select-placeholder {
+    border: 1px solid var(--color-shadow-light);
+    border-radius: 10px;
+    height: 13.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-select-container .form-group .file-select-placeholder:hover {
+    border-color: var(--color-pink);
+}
+
+.file-select-container .form-group .file-select-placeholder:hover i {
+    color: var(--color-pink);
+}
+
+.file-select-container .form-group .file-select-placeholder i {
+    color: var(--color-shadow-light);
+    font-size: 5rem;
+    display: block;
+    transition: all 0.3s;
+}
+
+.file-select-container .form-group .file-select-placeholder p {
+    display: block;
+    color: var(--color-grey);
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+textarea {
+    resize: none;
+    height: 7rem;
+}

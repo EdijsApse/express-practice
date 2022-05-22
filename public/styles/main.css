@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
 }
 
-p, a, button, span, li {
+p, a, button, span, li, label, input {
     font-family: var(--text-font);
     font-weight: 300;
     font-size: 1.1rem;
@@ -46,6 +46,10 @@ p, a, button, span, li {
     background-color: var(--color-shadow-dark);
 }
 
+.btn-dark:hover {
+    box-shadow: 0px 0px 0px 1px var(--color-shadow-dark);
+}
+
 .bg-dark {
     background-color: var(--color-shadow-dark) !important;
 }
@@ -53,6 +57,15 @@ p, a, button, span, li {
 .btn-pink {
     background-color: var(--color-pink);
     color: #FFF;
+}
+
+.btn-pink-hover, .btn-pink-hover:focus {
+    border: 1px solid var(--color-pink);    
+}
+
+.btn-pink-hover:hover {
+    background-color: #FFF;
+    color: var(--color-pink) !important;
 }
 
 .btn-pink:hover, .btn-pink:focus {
@@ -67,4 +80,14 @@ p, a, button, span, li {
 .btn-light:hover, .btn-light:focus {
     background-color: var(--color-shadow-dark);
     color: #FFF;
+}
+
+.page-title-container h1 {
+    font-size: 4rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.page-main-container {
+    padding: 3rem;
 }

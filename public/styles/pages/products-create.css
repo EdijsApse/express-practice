@@ -1,0 +1,14 @@
+.product-form .product-form-row {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0 -1rem;
+}
+
+.product-form .product-form-row .product-form-col {
+    width: 50%;
+    padding: 0 1rem;
+}
+
+.product-form .form-btn-container {
+    margin-top: 0.5rem;
+}

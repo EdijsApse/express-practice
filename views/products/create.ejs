@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/styles/navigation.css" rel="stylesheet">
+    <link href="/styles/pages/products.css" rel="stylesheet">
+    <link href="/styles/pages/products-create.css" rel="stylesheet">
+    <link href="/styles/forms.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center position-relative" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Account</a>
+                    </li>
+                </ul>
+                <div class="auth-actions">
+                    <button class="btn btn-sm btn-auth btn-dark me-2">Login</button>
+                    <button class="btn btn-sm btn-auth btn-pink">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="bg-white page-title-container container-xxl">
+        <div class="py-5">
+            <h1 class="text-center">Add product</h1>
+        </div>
+    </section>
+    <section class="bg-white page-main-container container-xxl mt-5">
+        <form class="product-form">
+            <div class="product-form-row">
+                <div class="product-form-col">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="product-name">Name of product</label>
+                                <input type="text" name="name" class="form-control" id="product-name">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="product-price">Price</label>
+                                <input type="name" name="price" class="form-control" id="product-price" />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="product-summary">Summary</label>
+                                <textarea name="summary" class="form-control" id="product-summary"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="product-description">Description</label>
+                                <textarea name="description" class="form-control" id="product-description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-form-col">
+                    <div class="file-select-container">
+                        <div class="form-group">
+                            <label for="product-image">Product image</label>
+                            <div class="file-select-placeholder">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Select one or multiple images</p>
+                            </div>
+                            <input type="file" class="form-control-file" id="product-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn-container">
+                <button class="btn btn-pink btn-pink-hover" type="submit">Create</button>
+            </div>
+        </form>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -11,4 +11,12 @@ app.get('/', (req, res) => {
     res.render('landing');
 });
 
+app.get('/products', (req, res) => {
+    res.render('products/index');
+});
+
+app.get('/products/create', (req, res) => {
+    res.render('products/create');
+});
+
 app.listen(3000);
