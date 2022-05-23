@@ -88,6 +88,17 @@ p, a, button, span, li, label, input {
     margin: 0;
 }
 
+.page-action-fixed {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 0.75rem;
+    padding: 0.4rem 1rem;
+}
+
+.page-action-fixed i {
+    margin-right: 0.5rem;
+}
+
 .page-main-container {
     padding: 3rem;
 }
