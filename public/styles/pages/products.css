@@ -53,6 +53,11 @@
     font-size: 1.4rem;
 }
 
+.products-row .single-product .single-product-body .summary p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+
 .products-row .single-product .single-product-body .btn-purchase {
     margin-top: 0.65rem;
     padding: 0.4rem 1rem;
