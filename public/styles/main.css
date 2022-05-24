@@ -102,3 +102,7 @@ p, a, button, span, li, label, input {
 .page-main-container {
     padding: 3rem;
 }
+
+.container-fixed-xxl {
+    width: 560px;
+}

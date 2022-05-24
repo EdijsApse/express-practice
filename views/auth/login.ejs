@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs', { title: 'Login' }) %>
+<%- include('../includes/navigation.ejs') %>
+    <section class="bg-white page-title-container container-xxl">
+        <div class="py-5">
+            <h1 class="text-center">Login</h1>
+        </div>
+    </section>
+    <section class="bg-white page-main-container container-fixed-xxl mt-5 mx-auto">
+        <form action="/login" method="POST">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="email">Password</label>
+                        <input type="password" name="password" class="form-control" id="password">
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn-container">
+                <button class="btn btn-pink btn-pink-hover" type="submit">Login</button>
+            </div>
+        </form>
+    </section>
+<%- include('../includes/footer.ejs') %>

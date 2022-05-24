@@ -44,6 +44,22 @@ app.get('/products/create', (req, res) => {
     res.render('products/create');
 });
 
+app.get('/signup', (req, res) => {
+    res.render('auth/signup');
+})
+
+app.post('/signup', async (req, res) => {
+    res.redirect('/');
+})
+
+app.get('/login', (req, res) => {
+    res.render('auth/login');
+})
+
+app.post('/login', async (req, res) => {
+    res.redirect('/');
+})
+
 database.createConnection().then(() => {
     app.listen(3000);
 })
