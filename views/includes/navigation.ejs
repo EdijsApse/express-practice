@@ -16,8 +16,14 @@
                 </li>
             </ul>
             <div class="auth-actions">
-                <a href="/login" class="btn btn-sm btn-auth btn-dark me-2">Login</a>
-                <a href="/signup" class="btn btn-sm btn-auth btn-pink">Signup</a>
+                <% if (!isAuth) { %>
+                    <a href="/login" class="btn btn-sm btn-auth btn-dark me-2">Login</a>
+                    <a href="/signup" class="btn btn-sm btn-auth btn-pink">Signup</a>
+                <% } else { %>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-sm btn-auth btn-pink">Logout</button>
+                    </form>
+                <% } %>
             </div>
         </div>
     </div>
