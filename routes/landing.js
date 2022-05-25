@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.render('landing');
-});
+const landingController = require('../controllers/LandingController');
+
+router.get('/', landingController.index);
 
 module.exports = router;
