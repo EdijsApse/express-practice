@@ -1,6 +1,6 @@
-const database = require('../database/connection');
-const bcrypt = require('bcryptjs');
 const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
+const User = require('../models/User');
+
 
 function login(req, res) {
     const inputs = getSessionInputs(req, {
@@ -25,71 +25,42 @@ function register(req, res) {
 
 async function signIn(req, res) {
     const { email, password } = req.body;
+    const user = await User.findByEmail(email);
+    
+    if (user) {
+        await user.comparePasswords(password);
+    }
 
-    const user = await database.getDb().collection('users').findOne({ email: email });
+    if (!user || !user.isValid) {
+        const errMessage = user ? user.errorMessage : 'Invalid credentials';
 
-    if (!user) {
         flashErrorMessage(req, {
             email: email,
             password: password
-        }, 'Invalid credentials!');
+        }, errMessage);
 
         return res.redirect('/login');
     }
 
-    const passwordsMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordsMatch) {
-        flashErrorMessage(req, {
-            email: email,
-            password: password
-        }, 'Invalid credentials!');
-
-        return res.redirect('/login');
-    }
-
-    req.session.user = user;
+    user.login(req);
 
     res.redirect('/');
 }
 
 async function signUp(req, res) {
     const { email, password, password_confirmation, name, surname } = req.body;
+    const user = new User(name, surname, email, password);
 
-    if (password !== password_confirmation) {
+    user.confirmPassword(password_confirmation);
+    await user.validate();
 
-        flashErrorMessage(req, {
-            email: email,
-            name: name,
-            surname: surname
-        }, 'Passwords doesnt match!');
-
-        return res.redirect('/signup');
-    }
-    
-    const emailTaken = await database.getDb().collection('users').findOne({ email: email });
-
-    if (emailTaken) {
-        
-        flashErrorMessage(req, {
-            email: email,
-            name: name,
-            surname: surname
-        }, 'Email already taken');
-
+    if (!user.isValid) {
+        flashErrorMessage(req, { email: email, name: name, surname: surname }, user.errorMessage);
         return res.redirect('/signup');
     }
 
-    const hashedPwd = await bcrypt.hash(password, 12);
-
-    const user = await database.getDb().collection('users').insertOne({
-        email: email,
-        password: hashedPwd,
-        name: name,
-        surname: surname
-    })
-
-    req.session.user = user;
+    await user.register();
+    user.login(req);
 
     res.redirect('/');
 }
