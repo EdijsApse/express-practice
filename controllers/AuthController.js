@@ -1,7 +1,6 @@
 const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
 const User = require('../models/User');
 
-
 function login(req, res) {
     const inputs = getSessionInputs(req, {
         email: '',

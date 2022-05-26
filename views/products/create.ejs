@@ -6,32 +6,43 @@
         </div>
     </section>
     <section class="bg-white page-main-container container-xxl mt-5">
-        <form class="product-form" action="/products" method="POST">
+        <% if (hasError) { %>
+            <%= errorMessage %>
+        <% } %>
+        <form class="product-form" action="/products" method="POST" enctype="multipart/form-data" novalidate>
             <div class="product-form-row">
                 <div class="product-form-col">
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="product-name">Name of product</label>
-                                <input type="text" name="name" class="form-control" id="product-name">
+                                <input type="text" name="name" class="form-control" id="product-name" value="<%= inputs.name %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="product-price">Price</label>
+                                <input type="number" name="price" class="form-control" id="product-price" value="<%= inputs.price %>" step="0.1" />
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="product-price">Price</label>
-                                <input type="name" name="price" class="form-control" id="product-price" />
+                                <label for="available">Available in stock</label>
+                                <input type="number" name="available" class="form-control" id="available" value="<%= inputs.available %>" />
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="product-summary">Summary</label>
-                                <textarea name="summary" class="form-control" id="product-summary"></textarea>
+                                <textarea name="summary" class="form-control" id="product-summary"><%= inputs.summary %></textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="product-description">Description</label>
-                                <textarea name="description" class="form-control" id="product-description"></textarea>
+                                <textarea name="description" class="form-control" id="product-description"><%= inputs.description %></textarea>
                             </div>
                         </div>
                     </div>
@@ -44,7 +55,7 @@
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
                                 <p>Select one or multiple images</p>
                             </div>
-                            <input type="file" class="form-control-file file-select-input" multiple accept="image/png, image/jpeg" id="product-image">
+                            <input type="file" name="product-images" class="form-control-file file-select-input" multiple accept="image/png, image/jpeg" id="product-image">
                         </div>
                     </div>
                     <div class="selected-files-preview"></div>

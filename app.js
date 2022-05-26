@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 
-const session = require('./session/store-config');
+const session = require('./config/session');
 const database = require('./database/connection');
 
 const productRoutes = require('./routes/products');
