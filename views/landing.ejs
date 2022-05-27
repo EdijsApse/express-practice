@@ -1,50 +1,13 @@
 <%- include('includes/head.ejs', { title: 'All products' }) %>
 <%- include('includes/navigation.ejs') %>
-    <section class="bg-white page-title-container container-xxl">
-        <div class="py-5">
-            <h1 class="text-center">Products</h1>
+    <section class="landing-intro">
+        <div class="intro-text">
+            <h1>Explore MyCart store</h1>
+            <p>Store which is created from our users and used by our users!</p>
+            <a href="/products" class="btn btn-lg btn-pink btn-pink-hover">Purchase goods</a>
         </div>
-        <div class="products-categories-list d-flex justify-content-center">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">T-Shirts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Shoes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hoodies</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Shorts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hats</a>
-                </li>
-            </ul>
-        </div>
-    </section>
-    <section class="bg-white page-main-container container-xxl mt-5">
-        <div class="products-row">
-            <div class="single-product">
-                <div class="single-product-image">
-                    <img src="/example.png" class="card-img-top" alt="...">
-                </div>
-                <div class="single-product-body">
-                    <h5>Card title</h5>
-                    <div class="rating">
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                    </div>
-                    <div class="price-tag">
-                        <span class="price">20$</span>
-                    </div>
-                    <button class="btn btn-sm btn-dark btn-purchase">Add to cart</button>
-                </div>
-            </div>
+        <div class="intro-image">
+            <img src="/landing-image.png" alt="MyCart landing image" />
         </div>
     </section>
 <%- include('includes/footer.ejs') %>

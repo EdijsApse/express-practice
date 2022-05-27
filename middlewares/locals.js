@@ -22,7 +22,20 @@ function isAuth(req, res, next) {
     next();
 }
 
+function sessionCart(req, res, next) {
+    const { cart } = req.session;
+
+    res.locals.cart = [];
+
+    if (cart) {
+        res.locals.cart = cart;
+    }
+
+    next();
+}
+
 module.exports = {
     errorMessages: errorMessages,
-    isAuth: isAuth
+    isAuth: isAuth,
+    sessionCart: sessionCart
 }

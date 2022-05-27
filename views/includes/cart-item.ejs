@@ -1,0 +1,16 @@
+<div class="cart-item box-radius box-shadow">
+    <div class="image">
+        <img src="/example.png" alt="<%= product.name %>" />
+    </div>
+    <div class="item-details">
+        <h2><%= product.name %></h2>
+        <p><%= product.summary %></p>
+    </div>
+    <div class="item-action">
+        <span class="price">$ <%= product.price %></span>
+        <form method="POST" action="/cart/remove">
+            <input type="hidden" name="product_id" value="<%= product._id %>" />
+            <button class="btn btn-pink" type="submit">Remove</button>
+        </form>
+    </div>
+</div>

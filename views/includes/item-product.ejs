@@ -17,6 +17,9 @@
         <div class="summary">
             <p><%= product.summary %></p>
         </div>
-        <button class="btn btn-sm btn-dark btn-purchase">Add to cart</button>
+        <form method="POST" action="/cart/add">
+            <input type="hidden" name="product_id" value="<%= product._id %>" />
+            <button class="btn btn-sm btn-dark btn-purchase">Add to cart</button>
+        </form>
     </div>
 </div>

@@ -36,6 +36,10 @@ class Product {
         });
     }
 
+    static async findById(id) {
+        return await database.getDb().collection('products').findOne({ _id: new ObjectId(id) });
+    }
+
     validate() {
         this.validateName();
         this.validateAvailable();

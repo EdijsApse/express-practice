@@ -8,6 +8,7 @@ html {
     --color-grey: #444444;
     --color-shadow-light: #EDEDED;
     --color-shadow-dark: #171717;
+    --color-box-shadow: #d1d1d1;
 }
 
 body {
@@ -30,6 +31,11 @@ p, a, button, span, li, label, input {
     padding: 0.4rem 1.5rem;
     font-weight: 300;
     border: none;
+}
+
+.btn-lg {
+    padding: 0.8rem 3rem;
+    font-size: 1.3rem;
 }
 
 .btn:focus {
@@ -105,4 +111,16 @@ p, a, button, span, li, label, input {
 
 .container-fixed-xxl {
     width: 560px;
+}
+
+.box-radius {
+    border-radius: 10px;
+}
+
+.box-radius-bottom {
+    border-radius: 0 0 10px 10px;
+}
+
+.box-shadow {
+    box-shadow: 0px 0px 10px 0px var(--color-box-shadow);
 }

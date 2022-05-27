@@ -1,6 +1,6 @@
 <%- include('../includes/head.ejs', { title: 'All products' }) %>
 <%- include('../includes/navigation.ejs') %>
-    <section class="bg-white page-title-container container-xxl">
+    <section class="bg-white page-title-container container-xxl box-shadow box-radius-bottom">
         <div class="py-5">
             <h1 class="text-center">Products</h1>
         </div>
@@ -24,7 +24,7 @@
             </ul>
         </div>
     </section>
-    <section class="bg-white page-main-container container-xxl mt-5">
+    <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
         <div class="products-row">
             <% for(const product of products) { %>
                 <%- include('../includes/item-product.ejs', { product }) %>

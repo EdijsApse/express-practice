@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs', { title: 'My Cart' }) %>
+<%- include('../includes/navigation.ejs') %>
+    <section class="bg-white page-title-container container-xxl box-shadow box-radius-bottom">
+        <div class="py-5">
+            <h1 class="text-center">My Cart</h1>
+        </div>
+    </section>
+    <section class="page-main-container cart-page container-xxl mt-5">
+        <% if (!cart.length) { %>
+            <div class="bg-white p-5 box-radius box-shadow">
+                <h2 class="text-center">Your cart is empty!</h2>
+                <div class="text-center mt-4">
+                    <a href="/products" class="btn btn-pink btn-pink-hover">Search for products</a>
+                </div>
+            </div>
+        <% } else { %>
+            <% for(const product of cart) { %>
+                <%- include('../includes/cart-item.ejs', { product }) %>
+            <% } %>
+            <div class="cart-actions">
+                <p class="price">$ <%= totalCartValue %></p>
+                <div class="actions">
+                    <button class="btn btn-pink btn-pink-hover">Empty Cart</button>
+                    <button class="btn btn-dark">Proceed</button>
+                </div>
+            </div>
+        <% } %>
+    </section>
+<%- include('../includes/footer.ejs') %>
