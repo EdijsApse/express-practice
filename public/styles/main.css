@@ -60,6 +60,11 @@ p, a, button, span, li, label, input {
     background-color: var(--color-shadow-dark) !important;
 }
 
+.btn-white {
+    color: var(--color-shadow-dark);
+    background-color: #FFF;
+}
+
 .btn-pink {
     background-color: var(--color-pink);
     color: #FFF;

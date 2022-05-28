@@ -6,7 +6,7 @@
         </div>
     </section>
     <section class="page-main-container cart-page container-xxl mt-5">
-        <% if (!cart.length) { %>
+        <% if (!products.length) { %>
             <div class="bg-white p-5 box-radius box-shadow">
                 <h2 class="text-center">Your cart is empty!</h2>
                 <div class="text-center mt-4">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         <% } else { %>
-            <% for(const product of cart) { %>
+            <% for(const product of products) { %>
                 <%- include('../includes/cart-item.ejs', { product }) %>
             <% } %>
             <div class="cart-actions">

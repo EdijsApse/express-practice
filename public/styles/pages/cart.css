@@ -12,6 +12,9 @@
 
 .cart-page .cart-item .image {
     width: 10rem;
+    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
     margin-right: 2rem;
 }
 

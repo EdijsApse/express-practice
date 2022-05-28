@@ -19,7 +19,7 @@ async function addProduct(req, res) {
 
 function index(req, res) {
     const cart = new Cart(req.session.cart);
-    res.render('cart/index', { totalCartValue: cart.getTotal() });
+    res.render('cart/index', { totalCartValue: cart.getTotal(), products: cart.getProducts() });
 }
 
 function removeProduct(req, res) {

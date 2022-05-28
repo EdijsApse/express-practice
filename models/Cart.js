@@ -1,11 +1,19 @@
+const Product = require('./Product');
+
 class Cart {
 
     constructor(products) {
         this.products = products ?? [];
     }
 
+    isInProductList(product_id) {
+        return this.products.findIndex((product) => product._id.equals(product_id)) !== -1;
+    }
+
     addProduct(product) {
-        this.products.push(product);
+        if (!this.isInProductList(product._id)) {
+            this.products.push(product);
+        }
     }
 
     removeItem(product_id) {
@@ -31,7 +39,11 @@ class Cart {
         session.cart = this.products;
     }
 
-    
+    getProducts() {
+        return this.products.map((product) => {
+            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
+        })
+    }
 }
 
 module.exports = Cart;

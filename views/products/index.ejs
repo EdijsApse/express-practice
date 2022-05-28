@@ -25,11 +25,18 @@
         </div>
     </section>
     <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
-        <div class="products-row">
-            <% for(const product of products) { %>
-                <%- include('../includes/item-product.ejs', { product }) %>
-            <% } %>
-        </div>
+        <% if (!products.length) { %>
+            <h2 class="text-center">No products found!</h2>
+            <div class="text-center mt-4">
+                <a href="/products/create" class="btn btn-pink btn-pink-hover">Sell your goods</a>
+            </div>
+        <% } else { %>
+            <div class="products-row">
+                <% for(const product of products) { %>
+                    <%- include('../includes/item-product.ejs', { product }) %>
+                <% } %>
+            </div>
+        <% } %> 
     </section>
     <a href="/products/create" class="btn btn-pink btn-pink-hover page-action-fixed">
         <i class="fa-solid fa-shop"></i>

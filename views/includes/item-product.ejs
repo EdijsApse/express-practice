@@ -1,18 +1,11 @@
 <div class="single-product">
     <div class="single-product-image">
-        <img src="/example.png" class="card-img-top" alt="...">
+        <img src="<%= product.getSingleImageUrl() %>" class="card-img-top" alt="<%= product.name %>">
     </div>
     <div class="single-product-body">
         <h5><%= product.name %></h5>
-        <div class="rating">
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-regular fa-star"></i>
-        </div>
         <div class="price-tag">
-            <span class="price"><%= product.price %></span>
+            <span class="price">$ <%= product.price %></span>
         </div>
         <div class="summary">
             <p><%= product.summary %></p>

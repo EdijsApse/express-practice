@@ -40,6 +40,13 @@ class Product {
         return await database.getDb().collection('products').findOne({ _id: new ObjectId(id) });
     }
 
+    static async find() {
+        const products = await database.getDb().collection('products').find().toArray();
+        return products.map((product) => {
+            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
+        })
+    }
+
     validate() {
         this.validateName();
         this.validateAvailable();
@@ -81,6 +88,18 @@ class Product {
                 }
             })
         });
+    }
+
+    getSingleImageUrl() {
+        if (!this.images.length) {
+            return process.env.NO_IMAGE_PATH;
+        }
+
+        return this.getProductPreviewImage();
+    }
+
+    getProductPreviewImage() {
+        return this.images[0];
     }
 }
 

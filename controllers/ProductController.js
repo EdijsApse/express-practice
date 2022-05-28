@@ -1,9 +1,8 @@
-const database = require('../database/connection');
 const Product = require('../models/Product');
 const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
 
 async function index(req, res) {
-    const products = await database.getDb().collection('products').find().toArray();
+    const products = await Product.find();
 
     res.render('products/index', { products });
 }
@@ -26,6 +25,8 @@ async function store(req, res) {
             description: description,
             available: available
         }, product.errorMessage);
+        
+        return res.redirect('/products/create')
     }
 
     await product.create();
