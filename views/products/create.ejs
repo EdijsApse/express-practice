@@ -29,8 +29,12 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="available">Available in stock</label>
-                                <input type="number" name="available" class="form-control" id="available" value="<%= inputs.available %>" />
+                                <label for="category">Category</label>
+                                <select name="category_id" class="form-select" id="category">
+                                    <% for (const category of categories){ %>
+                                        <option value="<%= category._id %>" <%= inputs.category == category._id ? 'selected' : '' %>><%= category.name %></option>
+                                    <% } %>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12">

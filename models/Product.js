@@ -1,9 +1,10 @@
 const { ObjectId } = require("mongodb");
 const database = require('../database/connection');
 const fs = require('fs');
+const Category = require("./Category");
 
 class Product {
-    constructor(name, price, summary, description, available, images, id = null) {
+    constructor(name, price, summary, description, category_id, images, id = null) {
 
         if (id) {
             this._id = new ObjectId(id);
@@ -14,24 +15,28 @@ class Product {
         this.summary = summary;
         this.description = description;
         this.images = images;
-        this.available = available;
+        this.category_id = category_id;
 
         this.errorMessage = null;
         this.isValid = true;
     }
 
     async create() {
+        const category = await Category.findById(this.category_id);
 
         this.price = Number.parseFloat(this.price).toFixed(2);
-        this.available = Number.parseFloat(this.available).toFixed();
 
         await database.getDb().collection('products').insertOne({
             name: this.name,
             price: this.price,
             summary: this.summary,
             description: this.description,
-            available: this.available,
             created: new Date(),
+            category: {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug
+            },
             images: this.images
         });
     }
@@ -41,15 +46,15 @@ class Product {
     }
 
     static async find() {
-        const products = await database.getDb().collection('products').find().toArray();
+        const products = await database.getDb().collection('products').find({}).toArray();
         return products.map((product) => {
             return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
         })
     }
 
-    validate() {
+    async validate() {
         this.validateName();
-        this.validateAvailable();
+        await this.validateCategory();
         this.validatePrice();
     }
 
@@ -62,12 +67,12 @@ class Product {
         }
     }
 
-    validateAvailable() {
-        const isValidNumber = !isNaN(this.available);
+    async validateCategory() {
+        const category = await Category.findById(this.category_id);
 
-        if (!isValidNumber) {
+        if (!category) {
             this.isValid = false;
-            this.errorMessage = 'Value of "Available in stock" must be number!';
+            this.errorMessage = 'Category not found!';
         }
     }
 

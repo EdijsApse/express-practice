@@ -1,16 +1,22 @@
+const Category = require('../models/Category');
 const Product = require('../models/Product');
+const ProductSearch = require('../models/ProductSearch');
 const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
 
 async function index(req, res) {
-    const products = await Product.find();
+    const searchQuery = {...req.params, ...req.query};
+    const dataProvider = new ProductSearch(searchQuery);
+    const categories = await Category.find();
 
-    res.render('products/index', { products });
+    await dataProvider.prepareData();
+
+    res.render('products/index', { dataProvider, categories });
 }
 
 async function store(req, res) {
-    const { name, summary, description, price, available } = req.body;
+    const { name, summary, description, price, category_id } = req.body;
     const images = req.files.map((file) => file.path);
-    const product = new Product(name, price, summary, description, available, images);
+    const product = new Product(name, price, summary, description, category_id, images);
 
     product.validate();
 
@@ -23,7 +29,7 @@ async function store(req, res) {
             price: price,
             summary: summary,
             description: description,
-            available: available
+            category_id: category_id
         }, product.errorMessage);
         
         return res.redirect('/products/create')
@@ -34,16 +40,17 @@ async function store(req, res) {
     return res.redirect('/products');
 }
 
-function create(req, res) {
+async function create(req, res) {
+    const categories = await Category.find();
     const inputs = getSessionInputs(req, {
         name: '',
         price: '',
         summary: '',
-        description: '',
-        available: ''
+        category_id: '',
+        description: ''
      });
 
-    res.render('products/create', { inputs });
+    res.render('products/create', { inputs, categories });
 }
 
 module.exports = {

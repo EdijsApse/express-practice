@@ -1,0 +1,13 @@
+th {
+    padding: 1.5rem 0;
+    font-size: 1.2rem;
+}
+
+td {
+    padding: 1rem 0;
+    vertical-align: middle;
+}
+
+td, th {
+    border-color: var(--color-shadow-light);
+}

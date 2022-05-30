@@ -1,0 +1,60 @@
+<%- include('../includes/head.ejs', { title: 'All products' }) %>
+<%- include('../includes/navigation.ejs') %>
+    <section class="bg-white page-title-container container-xxl box-shadow box-radius-bottom">
+        <div class="py-5">
+            <h1 class="text-center">Shipping address</h1>
+        </div>
+        <div class="products-categories-list d-flex justify-content-center">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/wallet">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/shipping-address">Shipping address</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
+        <form action="/my-account/profile" method="POST">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" name="country" class="form-control" id="country" value="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="city">City / Town</label>
+                        <input type="text" name="city" class="form-control" id="city" value="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="state">State / Province / Region</label>
+                        <input type="text" name="state" class="form-control" id="state" value="">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="zip">ZIP / Postal code</label>
+                        <input type="text" name="zip" class="form-control" id="zip" value="">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="address_line">Address line</label>
+                        <input type="text" name="address_line" class="form-control" id="address_line" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="form-btn-container">
+                <button class="btn btn-pink btn-pink-hover" type="submit">Save</button>
+            </div>
+        </form>
+    </section>
+<%- include('../includes/footer.ejs') %>

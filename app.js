@@ -11,6 +11,8 @@ const productRoutes = require('./routes/products');
 const authRoutes = require('./routes/auth');
 const landingRoutes = require('./routes/landing');
 const cartRoutes = require('./routes/cart');
+const myAccountRoutes = require('./routes/my-account');
+const categoriesRoutes = require('./routes/categories');
 
 const locals = require('./middlewares/locals');
 
@@ -32,6 +34,8 @@ app.use(landingRoutes);
 app.use(productRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
+app.use(myAccountRoutes);
+app.use(categoriesRoutes);
 
 database.createConnection().then(() => {
     app.listen(3000);

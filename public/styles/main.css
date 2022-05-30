@@ -15,12 +15,12 @@ body {
     background-color: var(--color-shadow-light);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, th {
     font-family: var(--heading-font);
     font-weight: 400;
 }
 
-p, a, button, span, li, label, input {
+p, a, button, span, li, label, input, td {
     font-family: var(--text-font);
     font-weight: 300;
     font-size: 1.1rem;

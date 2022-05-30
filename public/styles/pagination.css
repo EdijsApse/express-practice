@@ -1,0 +1,20 @@
+.pagination {
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.pagination .page-link {
+    border-color: var(--color-shadow-light);
+    color: var(--color-pink);
+}
+
+.pagination .page-link:hover, .pagination .page-link:focus {
+    color: var(--color-shadow-dark);
+    background-color: var(--color-shadow-light);
+    box-shadow: none;
+}
+
+.pagination .active-page {
+    color: var(--color-shadow-dark);
+    background-color: var(--color-shadow-light);
+}

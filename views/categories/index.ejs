@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs', { title: 'All products' }) %>
+<%- include('../includes/navigation.ejs') %>
+    <section class="bg-white page-title-container container-xxl box-shadow box-radius-bottom">
+        <div class="py-5">
+            <h1 class="text-center">Categories</h1>
+        </div>
+    </section>
+    <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
+        <% if (!categories.length) { %>
+            <h2 class="text-center">No categories added yet!</h2>
+            <div class="text-center mt-4">
+                <a href="/categories/create" class="btn btn-pink btn-pink-hover">Go and create one</a>
+            </div>
+        <% } else { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Product count</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(const category of categories) { %>
+                        <tr>
+                            <td><%= category.name %></td>
+                            <td><%= category.getProdcutCount() %></td>
+                            <td>
+                                <form method="post" action="/categories/delete">
+                                    <input type="hidden" name="categoryId" value="<%= category._id %>" />
+                                    <button type="submit" class="btn btn-pink btn-pink-hover">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %> 
+                </tbody>
+            </table>
+        <% } %>
+    </section>
+    <a href="/categories/create" class="btn btn-pink btn-pink-hover page-action-fixed">
+        <i class="fa-solid fa-list"></i>
+        <span>Add category</span>
+    </a>
+<%- include('../includes/footer.ejs') %>

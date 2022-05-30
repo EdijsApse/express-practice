@@ -4,39 +4,38 @@
         <div class="py-5">
             <h1 class="text-center">Products</h1>
         </div>
-        <div class="products-categories-list d-flex justify-content-center">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">T-Shirts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Shoes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hoodies</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Shorts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Hats</a>
-                </li>
-            </ul>
-        </div>
+        <% if (categories.length) { %>
+            <div class="products-categories-list d-flex justify-content-center">
+                <ul class="nav">
+                    <% for (const category of categories) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products/s-<%= category.slug %>"><%= category.name %></a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>  
     </section>
     <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
-        <% if (!products.length) { %>
+        <% if (!dataProvider.data.length) { %>
             <h2 class="text-center">No products found!</h2>
             <div class="text-center mt-4">
                 <a href="/products/create" class="btn btn-pink btn-pink-hover">Sell your goods</a>
             </div>
         <% } else { %>
             <div class="products-row">
-                <% for(const product of products) { %>
+                <% for(const product of dataProvider.data) { %>
                     <%- include('../includes/item-product.ejs', { product }) %>
                 <% } %>
             </div>
-        <% } %> 
+            <nav>
+                <ul class="pagination">
+                    <% for (let page = 1; page <= dataProvider.pages; page++) { %> 
+                    <li class="page-item"><a class="page-link <%= page == dataProvider.page ? 'active-page' : '' %>" href="/products/?page=<%= page %>"><%= page %></a></li>
+                    <% } %> 
+                </ul>
+            </nav>
+        <% } %>
     </section>
     <a href="/products/create" class="btn btn-pink btn-pink-hover page-action-fixed">
         <i class="fa-solid fa-shop"></i>
