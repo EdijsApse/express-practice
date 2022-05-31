@@ -1,7 +1,5 @@
 function errorHandler(error, req, res, next) {
-    const { user } = req.session;
-    
-    if (user) {
+    if (process.env.APP_MODE == 'dev') {
         return res.status(500).render('admin/500', { error });
     }
 
