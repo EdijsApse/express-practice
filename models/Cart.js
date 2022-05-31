@@ -44,6 +44,10 @@ class Cart {
             return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
         })
     }
+
+    emptyCart(session) {
+        session.cart = [];
+    }
 }
 
 module.exports = Cart;

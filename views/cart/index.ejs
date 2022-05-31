@@ -20,7 +20,9 @@
             <div class="cart-actions">
                 <p class="price">$ <%= totalCartValue %></p>
                 <div class="actions">
-                    <button class="btn btn-pink btn-pink-hover">Empty Cart</button>
+                    <form method="POST" action="/cart/empty">
+                        <button class="btn btn-pink btn-pink-hover" type="submit">Empty Cart</button>
+                    </form>
                     <button class="btn btn-dark">Proceed</button>
                 </div>
             </div>

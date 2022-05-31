@@ -32,8 +32,15 @@ function removeProduct(req, res) {
     res.redirect('/cart');
 }
 
+function emptyCart(req, res) {
+    const cart = new Cart(req.session.cart);
+    cart.emptyCart(req.session);
+    res.redirect('/cart');
+}
+
 module.exports = {
     addProduct: addProduct,
     index: index,
-    removeProduct: removeProduct
+    removeProduct: removeProduct,
+    emptyCart: emptyCart
 };

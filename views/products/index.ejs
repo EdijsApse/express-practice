@@ -37,8 +37,10 @@
             </nav>
         <% } %>
     </section>
+    <% if (isAuth) { %>
     <a href="/products/create" class="btn btn-pink btn-pink-hover page-action-fixed">
         <i class="fa-solid fa-shop"></i>
         <span>Add product</span>
     </a>
+    <% } %>
 <%- include('../includes/footer.ejs') %>
