@@ -13,8 +13,11 @@ const landingRoutes = require('./routes/landing');
 const cartRoutes = require('./routes/cart');
 const myAccountRoutes = require('./routes/my-account');
 const categoriesRoutes = require('./routes/categories');
+const errorRoutes = require('./routes/error');
 
 const locals = require('./middlewares/locals');
+
+const errorMiddlewares = require('./middlewares/error')
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +39,10 @@ app.use(authRoutes);
 app.use(cartRoutes);
 app.use(myAccountRoutes);
 app.use(categoriesRoutes);
+
+app.use(errorRoutes);
+
+app.use(errorMiddlewares.defaultErrorhandler);
 
 database.createConnection().then(() => {
     app.listen(3000);

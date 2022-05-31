@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const myAccountController = require('../controllers/MyAccountController');
 
-router.get('/my-account/profile', myAccountController.profile);
-router.post('/my-account/profile', myAccountController.updateProfile);
+const accessMiddlewares = require('../middlewares/access');
 
-router.get('/my-account/wallet', myAccountController.wallet);
-router.get('/my-account/shipping-address', myAccountController.shippingAddress);
+router.get('/my-account/profile', accessMiddlewares.proceedIfUser, myAccountController.profile);
+router.post('/my-account/profile', accessMiddlewares.proceedIfUser, myAccountController.updateProfile);
+
+router.get('/my-account/wallet', accessMiddlewares.proceedIfUser, myAccountController.wallet);
+router.get('/my-account/shipping-address', accessMiddlewares.proceedIfUser, myAccountController.shippingAddress);
 
 module.exports = router;
