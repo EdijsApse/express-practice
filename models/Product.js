@@ -2,9 +2,10 @@ const { ObjectId } = require("mongodb");
 const database = require('../database/connection');
 const fs = require('fs');
 const Category = require("./Category");
+const User = require("./User");
 
 class Product {
-    constructor(name, price, summary, description, category_id, images, id = null) {
+    constructor(name, price, summary, description, category_id, images, user, id = null) {
 
         if (id) {
             this._id = new ObjectId(id);
@@ -16,6 +17,7 @@ class Product {
         this.description = description;
         this.images = images;
         this.category_id = category_id;
+        this.user = user;
 
         this.errorMessage = null;
         this.isValid = true;
@@ -32,6 +34,10 @@ class Product {
             summary: this.summary,
             description: this.description,
             created: new Date(),
+            user: {
+                _id: this.user._id,
+                email: this.user.email
+            },
             category: {
                 _id: category._id,
                 name: category.name,
@@ -48,14 +54,23 @@ class Product {
     static async find() {
         const products = await database.getDb().collection('products').find({}).toArray();
         return products.map((product) => {
-            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
+            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product.user, product._id);
         })
     }
 
     async validate() {
         this.validateName();
-        await this.validateCategory();
         this.validatePrice();
+        await this.validateCategory();
+        await this.validateUser();
+    }
+
+    async validateUser() {
+        const user = await User.findById(this.user._id);
+        if (!user) {
+            this.errorMessage = 'User not found!';
+            this.isValid = false;
+        }
     }
 
     validateName() {
@@ -63,13 +78,12 @@ class Product {
 
         if (name.length < 5) {
             this.isValid = false;
-            this.errorMessage = 'Name must be atleast 2 characters long';
+            this.errorMessage = 'Name must be atleast 5 characters long';
         }
     }
 
     async validateCategory() {
         const category = await Category.findById(this.category_id);
-
         if (!category) {
             this.isValid = false;
             this.errorMessage = 'Category not found!';
@@ -77,11 +91,10 @@ class Product {
     }
 
     validatePrice() {
-        const isValidPrice = !isNaN(this.price);
-
+        const isValidPrice = (!isNaN(this.price) && this.price !== '');
         if (!isValidPrice) {
-            this.isValid = false;
             this.errorMessage = 'Price is not valid!';
+            this.isValid = false;
         }
     }
 

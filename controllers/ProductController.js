@@ -10,18 +10,23 @@ async function index(req, res) {
 
     await dataProvider.prepareData();
 
-    res.render('products/index', { 
+    res.render('products/index', {
         dataProvider: dataProvider,
         categories: categories,
     });
 }
 
-async function store(req, res) {
+async function store(req, res, next) {
     const { name, summary, description, price, category_id } = req.body;
     const images = req.files.map((file) => file.path);
-    const product = new Product(name, price, summary, description, category_id, images);
+    const { user } = req.session
+    const product = new Product(name, price, summary, description, category_id, images, user);
 
-    product.validate();
+    try {
+        await product.validate();
+    } catch(err) {
+        return next(err);
+    }
 
     if (!product.isValid) {
         

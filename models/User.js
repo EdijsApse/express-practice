@@ -116,6 +116,16 @@ class User {
             this.errorMessage = 'Invalid credentials';
         }
     }
+
+    static async findById(id) {
+        const user = await database.getDb().collection('users').findOne({ _id: new ObjectId(id) });
+        
+        if (user) {
+            return new User(user.name, user.surname, user.email, user.password, user._id);
+        }
+
+        return null;
+    }
 }
 
 module.exports = User;
