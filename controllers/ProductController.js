@@ -10,7 +10,10 @@ async function index(req, res) {
 
     await dataProvider.prepareData();
 
-    res.render('products/index', { dataProvider, categories });
+    res.render('products/index', { 
+        dataProvider: dataProvider,
+        categories: categories,
+    });
 }
 
 async function store(req, res) {

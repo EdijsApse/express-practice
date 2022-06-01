@@ -1,3 +1,5 @@
+const UrlHelper = require('../models/UrlHelper')
+
 function errorMessages(req, res, next) {
     const { hasError, errorMessage } = req.session;
 
@@ -34,8 +36,14 @@ function sessionCart(req, res, next) {
     next();
 }
 
+function urlBuilder(req, res, next) {
+    res.locals.urlHelper = new UrlHelper(req);
+    next();
+}
+
 module.exports = {
     errorMessages: errorMessages,
     isAuth: isAuth,
-    sessionCart: sessionCart
+    sessionCart: sessionCart,
+    urlBuilder: urlBuilder
 }

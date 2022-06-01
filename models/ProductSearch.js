@@ -6,7 +6,7 @@ class ProductSearch {
         this.q = q;
         this.slug = slug;
         this.page = 1;
-        this.pageSize = 2;
+        this.pageSize = 8;
         this.skipRecordCount = 0;
         this.pages = 0;
         

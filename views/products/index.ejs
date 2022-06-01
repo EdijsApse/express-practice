@@ -14,9 +14,15 @@
                     <% } %>
                 </ul>
             </div>
-        <% } %>  
+        <% } %>
     </section>
     <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
+        <form method="GET">
+            <div class="form-group d-flex">
+                <input type="text" class="form-control" placeholder="Search for product" name="q" value="<%= urlHelper.getParamValue('q') %>"/>
+                <button class="btn btn-pink ms-4" type="submit">Search</button>
+            </div>
+        </form>
         <% if (!dataProvider.data.length) { %>
             <h2 class="text-center">No products found!</h2>
             <div class="text-center mt-4">
@@ -30,8 +36,10 @@
             </div>
             <nav>
                 <ul class="pagination">
-                    <% for (let page = 1; page <= dataProvider.pages; page++) { %> 
-                    <li class="page-item"><a class="page-link <%= page == dataProvider.page ? 'active-page' : '' %>" href="/products/?page=<%= page %>"><%= page %></a></li>
+                    <% for (let page = 1; page <= dataProvider.pages; page++) { %>
+                        <li class="page-item">
+                            <a class="page-link <%= page == dataProvider.page ? 'active-page' : '' %>" href="<%= urlHelper.builUrl({ page: page }) %>"><%= page %></a>
+                        </li>
                     <% } %> 
                 </ul>
             </nav>

@@ -1,5 +1,5 @@
 function index(req, res) {
-    res.render('laanding');
+    res.render('landing');
 }
 
 module.exports = {
