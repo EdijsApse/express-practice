@@ -1,3 +1,5 @@
+const Order = require("../models/Order");
+
 function profile(req, res) {
     return res.render('my-account/profile', { user: req.session.user });
 }
@@ -13,9 +15,16 @@ function shippingAddress(req, res) {
     return res.render('my-account/shipping-address');
 }
 
+async function orders(req, res) {
+    const orders = await Order.findByUserId(req.session.user._id);
+    return res.render('my-account/orders', { orders });
+}
+
+
 module.exports = {
     profile: profile,
     wallet: wallet,
     shippingAddress: shippingAddress,
-    updateProfile: updateProfile
+    updateProfile: updateProfile,
+    orders: orders
 }

@@ -1,5 +1,7 @@
 const Cart = require('../models/Cart');
+const Order = require('../models/Order');
 const Product = require('../models/Product');
+const { flashErrorMessage } = require('../utils/session-validation');
 
 async function addProduct(req, res) {
     const { product_id } = req.body;
@@ -38,9 +40,27 @@ function emptyCart(req, res) {
     res.redirect('/cart');
 }
 
+async function createOrder(req, res) {
+    const products = req.session.cart;
+    const user = req.session.user;
+
+    const cart = new Cart(req.session.cart);
+    const order = new Order(products, user);
+
+    await order.createOrder();
+
+    if (order.created) {
+        cart.emptyCart(req.session);
+        return res.redirect('/my-account/orders');
+    }
+
+    res.redirect('/cart');
+}
+
 module.exports = {
     addProduct: addProduct,
     index: index,
     removeProduct: removeProduct,
-    emptyCart: emptyCart
+    emptyCart: emptyCart,
+    createOrder: createOrder
 };

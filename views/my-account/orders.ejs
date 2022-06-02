@@ -1,0 +1,51 @@
+<%- include('../includes/head.ejs', { title: 'My Orders' }) %>
+<%- include('../includes/navigation.ejs') %>
+    <section class="bg-white page-title-container container-xxl box-shadow box-radius-bottom">
+        <div class="py-5">
+            <h1 class="text-center">Orders</h1>
+        </div>
+        <div class="products-categories-list d-flex justify-content-center">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/wallet">Wallet</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/shipping-address">Shipping address</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/my-account/orders">Orders</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="bg-white page-main-container container-xxl mt-5 box-shadow box-radius">
+        <% if (!orders.length) { %>
+            <h2 class="text-center">No orders created!</h2>
+            <div class="text-center mt-4">
+                <a href="/prodcuts" class="btn btn-pink btn-pink-hover">Go and order some products</a>
+            </div>
+        <% } else { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Product count</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(const order of orders) { %>
+                        <tr>
+                            <td><%= order._id %></td>
+                            <td><%= order.products.length %></td>
+                            <td><%= order.date %></td>
+                        </tr>
+                    <% } %> 
+                </tbody>
+            </table>
+        <% } %>
+    </section>
+<%- include('../includes/footer.ejs') %>
