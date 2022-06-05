@@ -112,6 +112,8 @@ p, a, button, span, li, label, input, td {
 
 .page-main-container {
     padding: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .container-fixed-xxl {
