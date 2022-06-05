@@ -19,7 +19,8 @@ Full course can be viewed here- **[100 Days Of Code - 2022 Web Development Bootc
 **Project summary**
 
 Project is prety basic online store app, where you can add product and other users can "buy" them. Once you add product, it becames visible to other users and they can add them to cart.
-App includes:
+
+**App includes:**
 - Simple authentication
 - Product creation
 - Prodcut categories creation
