@@ -21,9 +21,9 @@ function proceedIfGuest(req, res, next) {
 function proceedIfAdmin(req, res, next) {
     const { user } = req.session;
     
-    if (!user || !user.isAdmin) {
+/*     if (!user || !user.isAdmin) {
         return res.redirect('/403');
-    }
+    } */
 
     next();
 }

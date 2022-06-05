@@ -119,6 +119,10 @@ class Product {
     getProductPreviewImage() {
         return this.images[0];
     }
+
+    getShortSummary() {
+        return `${this.summary.slice(0, 200)} ...`;
+    }
 }
 
 module.exports = Product;

@@ -12,16 +12,15 @@
 
 .cart-page .cart-item .image {
     width: 10rem;
-    height: 80px;
-    min-height: 80px;
-    max-height: 80px;
+    min-width: 10rem;
+    height:100%;
     margin-right: 2rem;
 }
 
 .cart-page .cart-item .image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .cart-page .cart-item .item-action {
