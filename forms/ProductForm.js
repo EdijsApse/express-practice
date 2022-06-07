@@ -1,3 +1,4 @@
+const Validator = require('../utils/Validator');
 const BaseForm = require('./BaseForm');
 
 class ProductForm extends BaseForm{
@@ -7,7 +8,7 @@ class ProductForm extends BaseForm{
         {
             name: 'Name',
             field: 'name',
-            rules: ['required', 'min:5']
+            rules: [Validator.REQUIRED_RULE, Validator.minLength(5)]
         },
         {
             name: 'Description',
@@ -22,17 +23,17 @@ class ProductForm extends BaseForm{
         {
             name: 'Price',
             field: 'price',
-            rules: ['number', 'required']
+            rules: [Validator.REQUIRED_RULE, Validator.POSITIVE_NUMBER_RULE, Validator.NUMBER_RULE]
         },
         {
             name: 'Category',
             field: 'category_id',
-            rules: ['required']
+            rules: [Validator.REQUIRED_RULE]
         },
         {
             name: 'Image',
             field: 'image',
-            rules: ['required']
+            rules: [Validator.REQUIRED_RULE]
         }
     ];
 
