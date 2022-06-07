@@ -111,6 +111,10 @@ class Validator {
     static minLength(value) {
         return `min:${value}`
     }
+
+    hasErrors() {
+        return this.errors.length > 0;
+    }
 }
 
 module.exports = Validator;

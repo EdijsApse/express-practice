@@ -17,7 +17,22 @@
 }
 
 .form-group label {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
     margin-bottom: 0.75rem;
+}
+
+.form-group label .show-password {
+    font-size: 0.9rem;
+    color: var(--color-shadow-dark);
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.3s;
+}
+
+.form-group label .show-password:hover {
+    color: var(--color-pink);
 }
 
 .form-group .form-control, .form-group .form-select {

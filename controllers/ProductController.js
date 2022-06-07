@@ -23,11 +23,7 @@ async function store(req, res, next) {
     const inputs = {...req.body, image: req.file ? req.file.path : null};
     const form = new ProductForm(inputs);
 
-    try {
-        await form.validate();
-    } catch(err) {
-        return next(err);
-    }
+    form.validate();
 
     if (!form.isValid) {
         req.session.inputs = req.body;

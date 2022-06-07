@@ -32,9 +32,17 @@ class BaseForm {
         const value = this.inputs[field];
         const validator = new Validator(value, rules, name, field);
         
-        if (validator.errors.length) {
-            this.errors = [...this.errors, ...validator.errors];   
+        if (validator.hasErrors()) {
+            this.addErrors(validator.errors);
         }
+    }
+
+    addErrors(errors) {
+        this.errors = [...this.errors, ...errors];
+    }
+
+    addSingleError(field, value, message) {
+        this.addErrors([{field, value, message}])
     }
 }
 

@@ -1,9 +1,10 @@
 const Validator = require('../utils/Validator');
 const BaseForm = require('./BaseForm');
 
-class ProductForm extends BaseForm{
+class ProductForm extends BaseForm {
 
     fields = ['name', 'description', 'summary', 'price', 'image', 'category_id'];
+
     fieldParams = [
         {
             name: 'Name',
@@ -36,9 +37,6 @@ class ProductForm extends BaseForm{
             rules: [Validator.REQUIRED_RULE]
         }
     ];
-
-    errors = [];
-    isValid = true;
 
     constructor(inputs) {
         super(inputs);

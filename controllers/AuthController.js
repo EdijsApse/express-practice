@@ -1,5 +1,6 @@
 const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
 const User = require('../models/User');
+const RegistrationForm = require('../forms/RegistrationForm');
 
 function login(req, res) {
     const inputs = getSessionInputs(req, {
@@ -47,18 +48,22 @@ async function signIn(req, res) {
 }
 
 async function signUp(req, res) {
-    const { email, password, password_confirmation, name, surname } = req.body;
-    const user = new User(name, surname, email, password);
 
-    user.confirmPassword(password_confirmation);
-    await user.validate();
+    const form = new RegistrationForm(req.body);
 
-    if (!user.isValid) {
-        flashErrorMessage(req, { email: email, name: name, surname: surname }, user.errorMessage);
+    await form.validate();
+
+    if (!form.isValid) {
+        req.session.inputs = req.body;
+        req.session.errors = form.errors;
+
         return res.redirect('/signup');
     }
 
+    const user = new User(form.name, form.surname, form.email, form.password);
+
     await user.register();
+    
     user.login(req);
 
     res.redirect('/');
