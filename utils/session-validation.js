@@ -1,12 +1,10 @@
 function getSessionInputs(req, defaults) {
-    let sessionInputs = req.session.inputs;
+    let sessionInputs = req.session.inputErrors;
 
     if (!sessionInputs) {
 
         sessionInputs = {
             ...defaults,
-            message: null,
-            hasError: false
         }
     }
 

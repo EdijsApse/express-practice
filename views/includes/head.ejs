@@ -17,5 +17,9 @@
     <link href="/styles/table.css" rel="stylesheet">
     <link href="/styles/pagination.css" rel="stylesheet">
     <link href="/styles/footer.css" rel="stylesheet">
+    <link href="/styles/flash-message.css" rel="stylesheet">
 </head>
 <body>
+<% if (hasFlashMessage) { %>
+    <%- include('./flash-message.ejs') %>
+<% } %>

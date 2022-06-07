@@ -12,8 +12,8 @@ function prepareFilePicker() {
     });
 
     input.addEventListener('change', () => {
-        const files = input.files;
-        [].forEach.call(files, showSelectedFiles)
+        const file = input.files[0];
+        showSelectedFiles(file);
     });
 }
 

@@ -8,7 +8,7 @@ const accessMiddlewares = require('../middlewares/access');
 
 router.get('/products', productController.index);
 router.get('/products/s-:slug', productController.index);
-router.post('/products', accessMiddlewares.proceedIfUser, fileUpload.array('product-images'), productController.store);
+router.post('/products', accessMiddlewares.proceedIfUser, fileUpload.single('image'), productController.store);
 router.get('/products/create', accessMiddlewares.proceedIfUser, productController.create);
 
 module.exports = router;

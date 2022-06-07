@@ -54,7 +54,7 @@ class ProductSearch {
         .limit(this.pageSize)
         .toArray();
 
-        this.data = products.map((product) => new Product(product.name, product.price, product.summary, product.description, product.category, product.images, product.user, product._id));
+        this.data = products.map((product) => new Product(product.name, product.price, product.summary, product.description, product.category, product.image, product.user, product._id));
     }
 }
 

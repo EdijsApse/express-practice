@@ -1,7 +1,9 @@
+const ProductForm = require('../forms/ProductForm');
 const Category = require('../models/Category');
 const Product = require('../models/Product');
 const ProductSearch = require('../models/ProductSearch');
-const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
+const FileHelper = require('../utils/FileHelper');
+const SessionHelper = require('../utils/SessionHelper');
 
 async function index(req, res) {
     const searchQuery = {...req.params, ...req.query};
@@ -17,48 +19,46 @@ async function index(req, res) {
 }
 
 async function store(req, res, next) {
-    const { name, summary, description, price, category_id } = req.body;
-    const images = req.files.map((file) => file.path);
-    const { user } = req.session
-    const product = new Product(name, price, summary, description, category_id, images, user);
+    const { user } = req.session;
+    const inputs = {...req.body, image: req.file ? req.file.path : null};
+    const form = new ProductForm(inputs);
 
     try {
-        await product.validate();
+        await form.validate();
     } catch(err) {
         return next(err);
     }
 
-    if (!product.isValid) {
+    if (!form.isValid) {
+        req.session.inputs = req.body;
+        req.session.errors = form.errors;
         
-        product.removeUploadImages();
+        try {
+            FileHelper.removeFile(form.image);
+        } catch(err) {
+            return next(err);
+        }
 
-        flashErrorMessage(req, {
-            name: name,
-            price: price,
-            summary: summary,
-            description: description,
-            category_id: category_id
-        }, product.errorMessage);
-        
-        return res.redirect('/products/create')
+        return res.redirect('/products/create');
+    }
+    
+    const product = new Product(form.name, form.price, form.summary, form.description, form.category_id, form.image, user);
+
+    try {
+        await product.create();
+    } catch(err) {
+        return next(err);
     }
 
-    await product.create();
+    SessionHelper.flashMessage(req, 'Product created!');
 
     return res.redirect('/products');
 }
 
 async function create(req, res) {
     const categories = await Category.find();
-    const inputs = getSessionInputs(req, {
-        name: '',
-        price: '',
-        summary: '',
-        category_id: '',
-        description: ''
-     });
 
-    res.render('products/create', { inputs, categories });
+    res.render('products/create', { categories });
 }
 
 module.exports = {

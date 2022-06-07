@@ -6,60 +6,63 @@
         </div>
     </section>
     <section class="bg-white page-main-container container-xxl box-shadow box-radius">
-        <% if (hasError) { %>
-            <%= errorMessage %>
-        <% } %>
         <form class="product-form" action="/products" method="POST" enctype="multipart/form-data" novalidate>
             <div class="product-form-row">
                 <div class="product-form-col">
                     <div class="row">
                         <div class="col-6">
-                            <div class="form-group">
+                            <div class="form-group <%= formHelper.hasError('name') ? 'has-error' : '' %>">
                                 <label for="product-name">Name of product</label>
-                                <input type="text" name="name" class="form-control" id="product-name" value="<%= inputs.name %>">
+                                <input type="text" name="name" class="form-control" id="product-name" value="<%= formHelper.old('name') %>">
+                                <%- include('../includes/form-error', { name: 'name' }) %>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <div class="form-group">
+                            <div class="form-group <%= formHelper.hasError('price') ? 'has-error' : '' %>">
                                 <label for="product-price">Price</label>
-                                <input type="number" name="price" class="form-control" id="product-price" value="<%= inputs.price %>" step="0.1" />
+                                <input type="number" name="price" class="form-control" id="product-price" value="<%= formHelper.old('price') %>" step="0.1" />
+                                <%- include('../includes/form-error', { name: 'price' }) %>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="form-group">
+                            <div class="form-group <%= formHelper.hasError('category_id') ? 'has-error' : '' %>">
                                 <label for="category">Category</label>
                                 <select name="category_id" class="form-select" id="category">
                                     <% for (const category of categories){ %>
-                                        <option value="<%= category._id %>" <%= inputs.category == category._id ? 'selected' : '' %>><%= category.name %></option>
+                                        <option value="<%= category._id %>" <%= formHelper.old('category_id') == category._id ? 'selected' : '' %>><%= category.name %></option>
                                     <% } %>
                                 </select>
+                                <%- include('../includes/form-error', { name: 'category_id' }) %>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-group">
+                            <div class="form-group <%= formHelper.hasError('summary') ? 'has-error' : '' %>">
                                 <label for="product-summary">Summary</label>
-                                <textarea name="summary" class="form-control" id="product-summary"><%= inputs.summary %></textarea>
+                                <textarea name="summary" class="form-control" id="product-summary"><%= formHelper.old('summary') %></textarea>
+                                <%- include('../includes/form-error', { name: 'summary' }) %>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-group">
+                            <div class="form-group <%= formHelper.hasError('description') ? 'has-error' : '' %>">
                                 <label for="product-description">Description</label>
-                                <textarea name="description" class="form-control" id="product-description"><%= inputs.description %></textarea>
+                                <textarea name="description" class="form-control" id="product-description"><%= formHelper.old('description') %></textarea>
+                                <%- include('../includes/form-error', { name: 'description' }) %>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="product-form-col">
                     <div class="file-select-container">
-                        <div class="form-group">
+                        <div class="form-group <%= formHelper.hasError('image') ? 'has-error' : '' %>">
                             <label for="product-image">Product image</label>
                             <div class="file-select-placeholder">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
                                 <p>Select one or multiple images</p>
                             </div>
-                            <input type="file" name="product-images" class="form-control-file file-select-input" multiple accept="image/png, image/jpeg" id="product-image">
+                            <input type="file" name="image" class="form-control-file file-select-input" accept="image/png, image/jpeg" id="product-image">
+                            <%- include('../includes/form-error', { name: 'image' }) %>
                         </div>
                     </div>
                     <div class="selected-files-preview"></div>

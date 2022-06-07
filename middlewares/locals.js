@@ -1,4 +1,20 @@
-const UrlHelper = require('../models/UrlHelper')
+const UrlHelper = require('../utils/UrlHelper')
+const FormHelper = require('../utils/FormHelper');
+
+function flashMessage(req, res, next) {
+    const { flashMessage } = req.session;
+    res.locals.hasFlashMessage = false;
+
+    if (flashMessage) {
+        const { type, message } = flashMessage;
+        res.locals.hasFlashMessage = true;
+        res.locals.type = type;
+        res.locals.message = message;
+        req.session.flashMessage = null
+    }
+
+    next();
+}
 
 function errorMessages(req, res, next) {
     const { hasError, errorMessage } = req.session;
@@ -41,9 +57,25 @@ function urlBuilder(req, res, next) {
     next();
 }
 
+function formHelper(req, res, next) {
+    const inputs = req.session.inputs ? req.session.inputs : {};
+    const errors = req.session.errors ? req.session.errors : [];
+
+    const formHelper = new FormHelper(inputs, errors);
+
+    res.locals.formHelper = formHelper;
+    
+    req.session.inputs = null;
+    req.session.errors = null;
+
+    next();
+}
+
 module.exports = {
     errorMessages: errorMessages,
     isAuth: isAuth,
     sessionCart: sessionCart,
-    urlBuilder: urlBuilder
+    urlBuilder: urlBuilder,
+    formHelper: formHelper,
+    flashMessage: flashMessage
 }

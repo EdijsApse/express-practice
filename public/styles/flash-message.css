@@ -1,0 +1,33 @@
+.flash-message {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 2;
+    padding: 2rem;
+    width: 30rem;
+    min-height: 10rem;
+    background-color: #FFF;
+}
+
+.flash-message i {
+    font-size: 5rem;
+    margin-right: 2rem;
+    align-self: flex-start;
+}
+
+.flash-message h6 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.flash-message.flash-success i {
+    color: var(--color-success);
+}
+
+.flash-message.flash-error i {
+    color: var(--color-danger);
+}
+
+.flash-message button:focus {
+    box-shadow: none;
+}

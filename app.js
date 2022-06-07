@@ -33,6 +33,8 @@ app.use(locals.errorMessages);
 app.use(locals.isAuth);
 app.use(locals.sessionCart);
 app.use(locals.urlBuilder);
+app.use(locals.formHelper);
+app.use(locals.flashMessage);
 
 app.use(landingRoutes);
 app.use(productRoutes);

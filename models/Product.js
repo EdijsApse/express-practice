@@ -1,11 +1,10 @@
 const { ObjectId } = require("mongodb");
 const database = require('../database/connection');
-const fs = require('fs');
 const Category = require("./Category");
 const User = require("./User");
 
 class Product {
-    constructor(name, price, summary, description, category_id, images, user, id = null) {
+    constructor(name, price, summary, description, category_id, image, user, id = null) {
 
         if (id) {
             this._id = new ObjectId(id);
@@ -15,12 +14,9 @@ class Product {
         this.price = price;
         this.summary = summary;
         this.description = description;
-        this.images = images;
+        this.image = image;
         this.category_id = category_id;
         this.user = user;
-
-        this.errorMessage = null;
-        this.isValid = true;
     }
 
     async create() {
@@ -43,7 +39,7 @@ class Product {
                 name: category.name,
                 slug: category.slug
             },
-            images: this.images
+            image: this.image
         });
     }
 
@@ -54,7 +50,7 @@ class Product {
     static async find() {
         const products = await database.getDb().collection('products').find({}).toArray();
         return products.map((product) => {
-            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product.user, product._id);
+            return new Product(product.name, product.price, product.summary, product.description, product.available, product.image, product.user, product._id);
         })
     }
 
@@ -98,26 +94,8 @@ class Product {
         }
     }
 
-    removeUploadImages() {
-        this.images.forEach(imgPath => {
-            fs.unlink(imgPath, (err) => {
-                if (err) {
-                    throw err
-                }
-            })
-        });
-    }
-
-    getSingleImageUrl() {
-        if (!this.images.length) {
-            return process.env.NO_IMAGE_PATH;
-        }
-
-        return this.getProductPreviewImage();
-    }
-
-    getProductPreviewImage() {
-        return this.images[0];
+    getImage() {
+        return this.image ? this.image : process.env.NO_IMAGE_PATH;
     }
 
     getShortSummary() {

@@ -2,6 +2,20 @@
     margin-bottom: 1.5rem;
 }
 
+.form-group.has-error .form-control {
+    border-color: var(--color-danger);
+}
+
+.form-group.has-error .form-error-message {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.9rem;
+    color: var(--color-danger);
+}
+
+.form-group.has-error .file-select-placeholder {
+    border-color: var(--color-danger) !important;
+}
+
 .form-group label {
     margin-bottom: 0.75rem;
 }

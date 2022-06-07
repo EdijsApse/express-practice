@@ -1,0 +1,14 @@
+<div class="flash-message box-shadow alert alert-dismissible fade show <%= type === 'success' ? 'flash-success' : 'flash-error' %> ">
+    <div class="d-flex flex-nowrap align-items-center"> 
+        <% if (type === 'success') { %>
+            <i class="fa-solid fa-thumbs-up"></i>
+        <% } else { %>
+            <i class="fa-solid fa-thumbs-down"></i>
+        <% } %>
+        <div>
+            <h6><%= type === 'success' ? 'Success message' : 'Error message' %> </h6>
+            <p class="m-0"><%= message %></p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
