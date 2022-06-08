@@ -1,43 +1,62 @@
 const { ObjectId } = require('mongodb');
 const database = require('../database/connection');
 const bcrypt = require('bcryptjs');
-const emailValidator = require('email-validator');
+const SessionHelper = require('../utils/SessionHelper');
 
 class User {
-    
-    constructor (name, surname, email, password, id = null) {
-        
-        if (id) {
-            this._id = new ObjectId(id)
-        }
 
+    constructor (collectionRecord) {
+
+        const { name, surname, email, password, is_admin, created, _id } = collectionRecord;
+
+        this.email = email;
         this.name = name;
         this.surname = surname;
-        this.email = email;
         this.password = password;
+        this.is_admin = is_admin;
+        this.created = created;
+        this._id = new ObjectId(_id);
     }
 
     static async findByEmail(email) {
         const user = await database.getDb().collection('users').findOne({ email });
 
         if (user) {
-            return new User(user.name, user.surname, user.email, user.password, user._id);
+            return new User(user);
         }
 
         return null;
     }
 
-    async register() {
-        await this.hashPassword();
-        await this.create();
+    static async create(attributes) {
+        const { name, password, email, surname } = attributes;
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const { insertedId } = await database.getDb().collection('users').insertOne({
+            name: name,
+            surname: surname,
+            email: email,
+            password: hashedPassword,
+            created: new Date(),
+            is_admin: 1
+        });
+
+        if (insertedId) {
+            const userById = await User.findById(insertedId);
+            return userById;
+        }
+
+        return null;
     }
 
     async login(req) {
-        req.session.user = this;
-    }
-
-    async hashPassword() {
-        this.password = await bcrypt.hash(this.password, 12);
+        SessionHelper.storeUser(req, {
+            _id: this._id,
+            name: this.name,
+            surname: this.surname,
+            email: this.email,
+            is_admin: this.is_admin
+        });
     }
 
     async create() {
@@ -52,20 +71,11 @@ class User {
         this._id = createdUser.insertedId;
     }
 
-    async comparePasswords(rawPwd) {
-        const isMatching = await bcrypt.compare(rawPwd, this.password);
-
-        if (!isMatching) {
-            this.isValid = false;
-            this.errorMessage = 'Invalid credentials';
-        }
-    }
-
     static async findById(id) {
         const user = await database.getDb().collection('users').findOne({ _id: new ObjectId(id) });
         
         if (user) {
-            return new User(user.name, user.surname, user.email, user.password, user._id);
+            return new User(user);
         }
 
         return null;

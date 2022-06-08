@@ -12,15 +12,17 @@
         <form action="/login" method="POST">
             <div class="row">
                 <div class="col-12">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('email') ? 'has-error' : '' %>">
                         <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" value="<%= inputs.email %>">
+                        <input type="email" name="email" class="form-control" id="email" value="<%= formHelper.old('email') %>">
+                        <%- include('../includes/form-error', { name: 'email' }) %>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('password') ? 'has-error' : '' %>">
                         <label for="email">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" value="<%= inputs.password %>">
+                        <input type="password" name="password" class="form-control" id="password" value="<%= formHelper.old('email') %>">
+                        <%- include('../includes/form-error', { name: 'email' }) %>
                     </div>
                 </div>
             </div>

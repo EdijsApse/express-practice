@@ -1,48 +1,38 @@
-const { getSessionInputs, flashErrorMessage } = require('../utils/session-validation');
 const User = require('../models/User');
 const RegistrationForm = require('../forms/RegistrationForm');
+const LoginForm = require('../forms/LoginForm');
+const SessionHelper = require('../utils/SessionHelper');
 
 function login(req, res) {
-    const inputs = getSessionInputs(req, {
-        email: '',
-        password: ''
-     });
-
-    res.render('auth/login', { inputs: inputs });
+    res.render('auth/login');
 }
 
 function register(req, res) {
-    const inputs = getSessionInputs(req, {
-        name: '',
-        surname: '',
-        email: ''
-     });
- 
-     res.render('auth/signup', {
-         inputs: inputs
-     });
+     res.render('auth/signup');
 }
 
 async function signIn(req, res) {
-    const { email, password } = req.body;
-    const user = await User.findByEmail(email);
-    
-    if (user) {
-        await user.comparePasswords(password);
-    }
+    const form = new LoginForm(req.body);
 
-    if (!user || !user.isValid) {
-        const errMessage = user ? user.errorMessage : 'Invalid credentials';
+    await form.validate();
 
-        flashErrorMessage(req, {
-            email: email,
-            password: password
-        }, errMessage);
+    if (!form.isValid) {
+        req.session.errors = form.errors;
+        req.session.inputs = req.body;
 
         return res.redirect('/login');
     }
 
+    const user = await User.findByEmail(form.email);
+
+    if (!user) {
+        SessionHelper.flashMessage(req, 'Cant sign you in!', false);
+        return res.redirect('/login');
+    }
+
     user.login(req);
+
+    SessionHelper.flashMessage(req, 'Welcome to MyCart online shop!');
 
     res.redirect('/');
 }
@@ -60,17 +50,22 @@ async function signUp(req, res) {
         return res.redirect('/signup');
     }
 
-    const user = new User(form.name, form.surname, form.email, form.password);
+    const user = await User.create(form.getModelAttributes());
 
-    await user.register();
+    if (!user) {
+        SessionHelper.flashMessage(req, 'Cannot create new user !', false);
+        return res.redirect('/login');
+    }
     
+    SessionHelper.flashMessage(req, 'Welcome to MyCart online shop!');
+
     user.login(req);
 
     res.redirect('/');
 }
 
 function logout(req, res) {
-    req.session.user = null;
+    SessionHelper.destroy(req, 'user');
     res.redirect('/');
 }
 

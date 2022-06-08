@@ -6,6 +6,16 @@ class SessionHelper {
             message : message
         }
     }
+
+    static storeUser(request, userParams) {
+        request.session.user = userParams;
+    }
+
+    static destroy(request, key) {
+        if (request.session[key]) {
+            request.session[key] = null;
+        }
+    }
 }
 
 module.exports = SessionHelper;

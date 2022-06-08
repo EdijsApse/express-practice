@@ -40,6 +40,15 @@ class RegistrationForm extends BaseForm {
         this.setFields();
     }
 
+    getModelAttributes() {
+        return {
+            name: this.name,
+            surname: this.surname,
+            email: this.email,
+            password: this.password
+        }
+    }
+
     async validate() {
         this.validatePasswordConfirmation();
         await this.validateUniqueEmail();
