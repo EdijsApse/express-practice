@@ -50,12 +50,6 @@ class Cart {
 
         return total.toFixed(2);
     }
-
-    getProducts() {
-        return this.products.map((product) => {
-            return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
-        })
-    }
 }
 
 module.exports = Cart;

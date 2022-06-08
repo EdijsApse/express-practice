@@ -20,9 +20,9 @@
                 </div>
                 <div class="col-12">
                     <div class="form-group <%= formHelper.hasError('password') ? 'has-error' : '' %>">
-                        <label for="email">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" value="<%= formHelper.old('email') %>">
-                        <%- include('../includes/form-error', { name: 'email' }) %>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" value="<%= formHelper.old('password') %>">
+                        <%- include('../includes/form-error', { name: 'password' }) %>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
     background-color: var(--color-shadow-dark);
     padding-top: 3rem;
     padding-bottom: 3rem;
+    margin-top: auto;
 }
 
 .footer .footer-logo {
