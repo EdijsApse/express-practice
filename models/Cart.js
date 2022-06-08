@@ -1,27 +1,43 @@
+const { ObjectId } = require('mongodb');
 const Product = require('./Product');
 
 class Cart {
+
+    static SESSION_STORAGE_KEY = 'products';
 
     constructor(products) {
         this.products = products ?? [];
     }
 
     isInProductList(product_id) {
-        return this.products.findIndex((product) => product._id.equals(product_id)) !== -1;
+        return this.products.findIndex((id) => id.equals(product_id)) !== -1;
     }
 
-    addProduct(product) {
-        if (!this.isInProductList(product._id)) {
-            this.products.push(product);
+    addProduct(product_id) {
+        if (!this.isInProductList(product_id)) {
+            this.products.push(new ObjectId(product_id));
         }
     }
 
     removeItem(product_id) {
-        const index = this.products.findIndex((product) => product._id.equals(product_id));
+        const index = this.products.findIndex((id) => id.equals(product_id));
 
         if (index !== -1) {
             this.products.splice(index, 1);
         }
+    }
+
+    async loadProductModels() {
+        const productPromises = [];
+        const _this = this;
+
+        this.products.forEach(id => {
+            productPromises.push(Product.findById(id))
+        });
+
+        await Promise.all(productPromises).then((products) => {
+            _this.products = products;
+        })
     }
 
     getTotal() {
@@ -35,18 +51,10 @@ class Cart {
         return total.toFixed(2);
     }
 
-    updateList(session) {
-        session.cart = this.products;
-    }
-
     getProducts() {
         return this.products.map((product) => {
             return new Product(product.name, product.price, product.summary, product.description, product.available, product.images, product._id);
         })
-    }
-
-    emptyCart(session) {
-        session.cart = [];
     }
 }
 

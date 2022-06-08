@@ -41,12 +41,12 @@ function isAuth(req, res, next) {
 }
 
 function sessionCart(req, res, next) {
-    const { cart } = req.session;
+    const { products } = req.session;
 
-    res.locals.cart = [];
+    res.locals.products = [];
 
-    if (cart) {
-        res.locals.cart = cart;
+    if (products) {
+        res.locals.products = products;
     }
 
     next();

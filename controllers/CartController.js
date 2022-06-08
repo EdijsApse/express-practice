@@ -1,42 +1,50 @@
 const Cart = require('../models/Cart');
 const Order = require('../models/Order');
 const Product = require('../models/Product');
-const { flashErrorMessage } = require('../utils/session-validation');
+const SessionHelper = require('../utils/SessionHelper');
 
 async function addProduct(req, res) {
     const { product_id } = req.body;
     const product = await Product.findById(product_id);
-    const cart = new Cart(req.session.cart);
+    const cart = new Cart(SessionHelper.get(req, Cart.SESSION_STORAGE_KEY));
 
     if (!product) {
-        return res.send(`${product_id}`);
+        return res.redirect('/404');
     }
 
-    cart.addProduct(product);
+    cart.addProduct(product._id);
 
-    cart.updateList(req.session);
+    SessionHelper.add(req, Cart.SESSION_STORAGE_KEY, cart.products);
+    SessionHelper.flashMessage(req, 'Cart updated!');
 
     return res.redirect('/products');
 }
 
-function index(req, res) {
-    const cart = new Cart(req.session.cart);
-    res.render('cart/index', { totalCartValue: cart.getTotal(), products: cart.getProducts() });
+async function index(req, res, next) {
+    const cart = new Cart(SessionHelper.get(req, Cart.SESSION_STORAGE_KEY));
+    try {
+        cart.loadProductModels().then(() => {
+            res.render('cart/index', { totalCartValue: cart.getTotal(), products: cart.products });
+        });
+    } catch(err) {
+        next(err);
+    }    
 }
 
 function removeProduct(req, res) {
-    const cart = new Cart(req.session.cart);
+    const cart = new Cart(SessionHelper.get(req, Cart.SESSION_STORAGE_KEY));
     const product = req.body.product_id;
 
     cart.removeItem(product);
-    cart.updateList(req.session);
+    
+    SessionHelper.add(req, Cart.SESSION_STORAGE_KEY, cart.products);
+    SessionHelper.flashMessage(req, 'Cart updated!');
 
     res.redirect('/cart');
 }
 
 function emptyCart(req, res) {
-    const cart = new Cart(req.session.cart);
-    cart.emptyCart(req.session);
+    SessionHelper.destroy(req, Cart.SESSION_STORAGE_KEY);
     res.redirect('/cart');
 }
 
