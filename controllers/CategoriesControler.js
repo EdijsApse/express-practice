@@ -1,30 +1,55 @@
+const CategoryForm = require("../forms/CategoryForm");
 const Category = require("../models/Category");
-const { flashErrorMessage, getSessionInputs } = require('../utils/session-validation');
+const SessionHelper = require("../utils/SessionHelper");
 
 async function index(req, res) {
     const categories = await Category.find();
-    res.render('categories/index', { categories });
+    const productCountPromises = [];
+    
+    categories.forEach(category => {
+        productCountPromises.push(
+            category.getProdcutCount()
+            .then((count) => {
+                category.productCount = count;
+            })
+            .catch(() => {
+                category.productCount = 0
+            })
+        );
+    });
+
+    Promise.all(productCountPromises).then(() => {
+        res.render('categories/index', { categories: categories });
+    })
 }
 
 function create(req, res) {
-    const inputs = getSessionInputs(req, { name: '' });
-    res.render('categories/create', { inputs });
+    res.render('categories/create');
 }
 
 async function store(req, res) {
-    const { name } = req.body;
-    const category = new Category(name);
+    const form = new CategoryForm(req.body);
     
-    category.validate();
-    
-    if (!category.isValid) {
-        flashErrorMessage(req, {
-            name: name,
-        }, category.errorMessage);
+    try {
+        await form.validate();
+    } catch(err) {
+        return next(err);
+    }
+
+    if (!form.isValid) {
+        req.session.inputs = req.body;
+        req.session.errors = form.errors;
         return res.redirect('/categories/create');
     }
 
-    await category.create();
+    const category = await Category.create(form.getModelAttributes());
+
+    if (!category) {
+        SessionHelper.flashMessage(req, 'Category not created!', false);
+        return res.redirect('/categories/create');
+    }
+
+    SessionHelper.flashMessage(req, 'Category created!');
 
     res.redirect('/categories');
 }
@@ -37,6 +62,8 @@ async function deleteCategory(req, res) {
     }
 
     await category.destroy();
+
+    SessionHelper.flashMessage(req, 'Category deleted!');
 
     res.redirect('/categories');
 }

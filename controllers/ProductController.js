@@ -19,11 +19,18 @@ async function index(req, res) {
 }
 
 async function store(req, res, next) {
-    const { user } = req.session;
-    const inputs = {...req.body, image: req.file ? req.file.path : null};
+    const inputs = {
+        ...req.body,
+        user_id: req.session.user ? req.session.user._id : null,
+        image: req.file ? req.file.path : null
+    };
     const form = new ProductForm(inputs);
 
-    form.validate();
+    try {
+        await form.validate();
+    } catch(err) {
+        return next(err);
+    }
 
     if (!form.isValid) {
         req.session.inputs = req.body;
@@ -38,12 +45,11 @@ async function store(req, res, next) {
         return res.redirect('/products/create');
     }
     
-    const product = new Product(form.name, form.price, form.summary, form.description, form.category_id, form.image, user);
+    const product = await Product.create({...form.getModelAttributes()});
 
-    try {
-        await product.create();
-    } catch(err) {
-        return next(err);
+    if (!product) {
+        SessionHelper.flashMessage(req, 'Product not created!', false);
+        return res.redirect('/products/create');
     }
 
     SessionHelper.flashMessage(req, 'Product created!');
@@ -53,7 +59,6 @@ async function store(req, res, next) {
 
 async function create(req, res) {
     const categories = await Category.find();
-
     res.render('products/create', { categories });
 }
 

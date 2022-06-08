@@ -73,7 +73,7 @@ class User {
 
     static async findById(id) {
         const user = await database.getDb().collection('users').findOne({ _id: new ObjectId(id) });
-        
+
         if (user) {
             return new User(user);
         }

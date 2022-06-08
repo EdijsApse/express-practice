@@ -6,15 +6,13 @@
         </div>
     </section>
     <section class="bg-white page-main-container container-xxl box-shadow box-radius">
-        <% if (hasError) { %>
-            <%= errorMessage %>
-        <% } %>
         <form action="/categories" method="POST" novalidate>
             <div class="row">
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('name') ? 'has-error' : '' %>">
                         <label for="category-name">Name of category</label>
-                        <input type="text" name="name" class="form-control" id="category-name" value="<%= inputs.name %>">
+                        <input type="text" name="name" class="form-control" id="category-name" value="<%= formHelper.old('name') %>">
+                        <%- include('../includes/form-error', { name: 'name' }) %>
                     </div>
                 </div>
             </div>

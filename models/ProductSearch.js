@@ -2,24 +2,27 @@ const database = require('../database/connection');
 const Product = require('./Product');
 
 class ProductSearch {
+    
+    page = 1;
+    pageSize = 8;
+    data = []
+    pages = 0;
+    skipRecordCount = 0;
+    collectionFilter = {};
+
     constructor({ q, slug, page }) {
         this.q = q;
         this.slug = slug;
-        this.page = 1;
-        this.pageSize = 8;
-        this.skipRecordCount = 0;
-        this.pages = 0;
-        
-        this.data = [];
+        this.page = (!isNaN(page) ? Math.abs(page) : 1);
 
-        if (page && page > 1) {
-            this.page = page;
+        this.setSkipRecords();
+        this.buildCollectionFilter();
+    }
+
+    setSkipRecords() {
+        if (this.page > 1) {
             this.skipRecordCount = (this.page * this.pageSize) - this.pageSize;
         }
-
-        this.searchObj = {};
-
-        this.buildSearchObj();
     }
 
     async prepareData() {
@@ -29,32 +32,32 @@ class ProductSearch {
 
     async loadPageInfo() {
         const docs = await database.getDb().collection('products')
-        .countDocuments(this.searchObj);
+        .countDocuments(this.collectionFilter);
 
         if (docs) {
             this.pages = Math.ceil(docs / this.pageSize);
         }
     }
 
-    buildSearchObj() {
+    buildCollectionFilter() {
         if (this.q) {
-            this.searchObj.name = { $regex: this.q };
+            this.collectionFilter.name = { $regex: this.q, $options: 'i' };
         }
 
         if (this.slug) {
-            this.searchObj['category.slug'] = this.slug;
+            this.collectionFilter['category.slug'] = this.slug;
         }
     }
 
     async search() {
         const products = await database.getDb()
         .collection('products')
-        .find(this.searchObj)
+        .find(this.collectionFilter)
         .skip(this.skipRecordCount)
         .limit(this.pageSize)
         .toArray();
 
-        this.data = products.map((product) => new Product(product.name, product.price, product.summary, product.description, product.category, product.image, product.user, product._id));
+        this.data = products.map((product) => new Product(product));
     }
 }
 
