@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Roboto:wght@300;400;500&display=swap');
+
+html {
+    --heading-font: 'Montserrat', sans-serif; /* 300;400;600 */
+    --text-font: 'Roboto', sans-serif; /* 300;400;500 */
+
+    --color-pink: #DA0037;
+    --color-grey: #444444;
+    --color-success: #14fc52;
+    --color-danger: #dc3545;
+    --color-shadow-light: #EDEDED;
+    --color-shadow-dark: #171717;
+    --color-box-shadow: #d1d1d1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    min-height: 100vh;
+    background-color: var(--color-shadow-light);
+}
+
+h1, h2, h3, h4, h5, h6, th {
+    font-family: var(--heading-font);
+    font-weight: 400;
+}
+
+p, a, button, span, li, label, input, td {
+    font-family: var(--text-font);
+    font-weight: 300;
+    font-size: 1.1rem;
+}
+
+.btn {
+    font-size: 1.1rem;
+    padding: 0.4rem 1.5rem;
+    font-weight: 300;
+    border: none;
+}
+
+.btn-lg {
+    padding: 0.8rem 3rem;
+    font-size: 1.3rem;
+}
+
+.btn:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn:active:focus {
+    box-shadow: none;
+}
+
+.btn-dark {
+    background-color: var(--color-shadow-dark);
+}
+
+.btn-dark:hover {
+    box-shadow: 0px 0px 0px 1px var(--color-shadow-dark);
+}
+
+.bg-dark {
+    background-color: var(--color-shadow-dark) !important;
+}
+
+.btn-white {
+    color: var(--color-shadow-dark);
+    background-color: #FFF;
+}
+
+.btn-pink {
+    background-color: var(--color-pink);
+    color: #FFF;
+}
+
+.btn-pink-hover, .btn-pink-hover:focus {
+    border: 1px solid var(--color-pink);    
+}
+
+.btn-pink-hover:hover {
+    background-color: #FFF;
+    color: var(--color-pink) !important;
+}
+
+.btn-pink:hover, .btn-pink:focus {
+    color: #FFF;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+    background-color: #FFF;
+    color: #000;
+}
+
+.btn-light:hover, .btn-light:focus {
+    background-color: var(--color-shadow-dark);
+    color: #FFF;
+}
+
+.page-title-container h1 {
+    font-size: 4rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.page-action-fixed {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 0.75rem;
+    padding: 0.4rem 1rem;
+}
+
+.page-action-fixed i {
+    margin-right: 0.5rem;
+}
+
+.page-main-container {
+    padding: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.container-fixed-xxl {
+    width: 560px;
+}
+
+.box-radius {
+    border-radius: 10px;
+}
+
+.box-radius-bottom {
+    border-radius: 0 0 10px 10px;
+}
+
+.box-shadow {
+    box-shadow: 0px 0px 10px 0px var(--color-box-shadow);
+}
