@@ -50,7 +50,7 @@ class User {
     }
 
     async login(req) {
-        SessionHelper.storeUser(req, {
+        SessionHelper.add(req, 'user', {
             _id: this._id,
             name: this.name,
             surname: this.surname,

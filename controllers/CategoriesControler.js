@@ -37,8 +37,8 @@ async function store(req, res) {
     }
 
     if (!form.isValid) {
-        req.session.inputs = req.body;
-        req.session.errors = form.errors;
+        SessionHelper.add(req, 'errors', form.errors);
+        SessionHelper.add(req, 'inputs', req.body);
         return res.redirect('/categories/create');
     }
 

@@ -49,16 +49,16 @@ function emptyCart(req, res) {
 }
 
 async function createOrder(req, res) {
-    const products = req.session.cart;
-    const user = req.session.user;
+    const products = SessionHelper.get(req, Cart.SESSION_STORAGE_KEY);
+    const user = SessionHelper.get(req, 'user');
 
-    const cart = new Cart(req.session.cart);
     const order = new Order(products, user);
 
     await order.createOrder();
 
     if (order.created) {
-        cart.emptyCart(req.session);
+        SessionHelper.destroy(req, Cart.SESSION_STORAGE_KEY);
+        SessionHelper.flashMessage(req, 'Order created!');
         return res.redirect('/my-account/orders');
     }
 

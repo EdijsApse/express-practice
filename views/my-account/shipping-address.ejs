@@ -4,54 +4,47 @@
         <div class="py-5">
             <h1 class="text-center">Shipping address</h1>
         </div>
-        <div class="products-categories-list d-flex justify-content-center">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/wallet">Wallet</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/shipping-address">Shipping address</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/orders">Orders</a>
-                </li>
-            </ul>
-        </div>
+        <%- include('./profile-nav.ejs') %>
     </section>
     <section class="bg-white page-main-container container-xxl box-shadow box-radius">
-        <form action="/my-account/profile" method="POST">
+        <form action="/my-account/shipping-address" method="POST">
+            <% if (address) { %>
+                <input type="hidden" name="_id" value="<%= address._id %>" />
+            <% } %>  
             <div class="row">
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('country') ? 'has-error' : '' %>">
                         <label for="country">Country</label>
-                        <input type="text" name="country" class="form-control" id="country" value="">
+                        <input type="text" name="country" class="form-control" id="country" value="<%= address ? address.country : formHelper.old('country') %>">
+                        <%- include('../includes/form-error', { name: 'country' }) %>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('city') ? 'has-error' : '' %>">
                         <label for="city">City / Town</label>
-                        <input type="text" name="city" class="form-control" id="city" value="">
+                        <input type="text" name="city" class="form-control" id="city" value="<%= address ? address.city : formHelper.old('city') %>">
+                        <%- include('../includes/form-error', { name: 'city' }) %>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('state') ? 'has-error' : '' %>">
                         <label for="state">State / Province / Region</label>
-                        <input type="text" name="state" class="form-control" id="state" value="">
+                        <input type="text" name="state" class="form-control" id="state" value="<%= address ? address.state : formHelper.old('state') %>">
+                        <%- include('../includes/form-error', { name: 'state' }) %>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('zip') ? 'has-error' : '' %>">
                         <label for="zip">ZIP / Postal code</label>
-                        <input type="text" name="zip" class="form-control" id="zip" value="">
+                        <input type="text" name="zip" class="form-control" id="zip" value="<%= address ? address.zip : formHelper.old('zip') %>">
+                        <%- include('../includes/form-error', { name: 'zip' }) %>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="form-group">
+                    <div class="form-group <%= formHelper.hasError('address_line') ? 'has-error' : '' %>">
                         <label for="address_line">Address line</label>
-                        <input type="text" name="address_line" class="form-control" id="address_line" value="">
+                        <input type="text" name="address_line" class="form-control" id="address_line" value="<%= address ? address.address_line : formHelper.old('address_line') %>">
+                        <%- include('../includes/form-error', { name: 'address_line' }) %>
                     </div>
                 </div>
             </div>

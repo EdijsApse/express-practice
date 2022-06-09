@@ -4,22 +4,7 @@
         <div class="py-5">
             <h1 class="text-center">Profile</h1>
         </div>
-        <div class="products-categories-list d-flex justify-content-center">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/wallet">Wallet</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/shipping-address">Shipping address</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/my-account/orders">Orders</a>
-                </li>
-            </ul>
-        </div>
+        <%- include('./profile-nav.ejs') %>
     </section>
     <section class="bg-white page-main-container container-xxl box-shadow box-radius">
         <form action="/my-account/profile" method="POST">

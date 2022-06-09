@@ -17,8 +17,8 @@ async function signIn(req, res) {
     await form.validate();
 
     if (!form.isValid) {
-        req.session.errors = form.errors;
-        req.session.inputs = req.body;
+        SessionHelper.add(req, 'errors', form.errors);
+        SessionHelper.add(req, 'inputs', req.body);
 
         return res.redirect('/login');
     }
@@ -44,8 +44,8 @@ async function signUp(req, res) {
     await form.validate();
 
     if (!form.isValid) {
-        req.session.inputs = req.body;
-        req.session.errors = form.errors;
+        SessionHelper.add(req, 'errors', form.errors);
+        SessionHelper.add(req, 'inputs', req.body);
 
         return res.redirect('/signup');
     }
